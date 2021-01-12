@@ -3,6 +3,7 @@ global:
   baseRepo: "quay.io/ibm-dlf"
   arch: "amd64"
   type: "k8s"
+  namespaceYaml: false
 
   sidecars:
     kubeletPath: "/var/lib/kubelet"
@@ -40,7 +41,7 @@ dataset-operator-chart:
 # dockerRegistrySecret: "anothersecret"
   generatekeys:
     image: "generate-keys"
-    tag: "latest"
+    tag: "cert-fix"
   datasetoperator:
     image: "dataset-operator"
-    tag: "latest"
+    tag: "cert-fix"

@@ -164,7 +164,7 @@ func main() {
 			// as main() doesn't wait for this goroutine to stop. don't use
 			// code with race conditions like these for production. see post
 			// comments below on more discussion on how to handle this.
-			log.Info("Error in listen")
+			log.Info(err,"Error in listen")
 		}
 	}()
 
