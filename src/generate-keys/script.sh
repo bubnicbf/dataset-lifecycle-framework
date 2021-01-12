@@ -32,7 +32,7 @@ openssl genrsa -out /tmp/dlf-keys/webhook-server-tls.key 2048
 #openssl req -new -key /tmp/dlf-keys/webhook-server-tls.key -subj "/CN=webhook-server.$DATASET_OPERATOR_NAMESPACE.svc" \
 #    | openssl x509 -req -CA /tmp/dlf-keys/ca.crt -CAkey /tmp/dlf-keys/ca.key -CAcreateserial -out /tmp/dlf-keys/webhook-server-tls.crt
 
-openssl genrsa -out /tmp/dlf-keys/server.key 2048
+openssl genrsa -out /tmp/dlf-keys/webhook-server-tls.key 2048
 cat >/tmp/dlf-keys/csr.conf <<EOF
 [req]
 default_bits = 2048
@@ -53,7 +53,7 @@ keyUsage=keyEncipherment,dataEncipherment
 extendedKeyUsage=serverAuth,clientAuth
 subjectAltName=@alt_names
 EOF
-openssl req -new -key /tmp/dlf-keys/server.key -config /tmp/dlf-keys/csr.conf | openssl x509 -req -CA /tmp/dlf-keys/ca.crt -CAkey /tmp/dlf-keys/ca.key -set_serial 01 -days 3650 -extensions v3_ext -extfile /tmp/dlf-keys/csr.conf -out /tmp/dlf-keys/server.crt
+openssl req -new -key /tmp/dlf-keys/webhook-server-tls.key -config /tmp/dlf-keys/csr.conf | openssl x509 -req -CA /tmp/dlf-keys/ca.crt -CAkey /tmp/dlf-keys/ca.key -set_serial 01 -days 3650 -extensions v3_ext -extfile /tmp/dlf-keys/csr.conf -out /tmp/dlf-keys/webhook-server-tls.crt
 rm /tmp/dlf-keys/csr.conf
 
 export CA_PEM_B64="$(openssl base64 -A < "/tmp/dlf-keys/ca.crt")"
